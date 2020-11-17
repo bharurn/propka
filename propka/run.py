@@ -36,8 +36,7 @@ def main(optargs=None):
             my_molecule.write_propka()
 
 
-def single(filename: str, optargs: tuple = (), stream=None,
-           write_pka: bool = True):
+def single(file, optargs: tuple = (), write_pka: bool = True):
     """Run a single PROPKA calculation using ``filename`` as input.
 
     Args:
@@ -109,7 +108,7 @@ def single(filename: str, optargs: tuple = (), stream=None,
     options.filenames = [filename]
 
     my_molecule = MolecularContainer(parameters, options)
-    my_molecule = read_molecule_file(filename, my_molecule, stream=stream)
+    my_molecule = read_molecule_file(file, my_molecule)
     my_molecule.calculate_pka()
 
     # write outputs

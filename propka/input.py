@@ -11,7 +11,6 @@ from propka.atom import Atom
 from propka.conformation_container import ConformationContainer
 from propka.group import initialize_atom_group
 
-
 def open_file_for_reading(input_file):
     """Open file or file-like stream for reading.
 
@@ -34,7 +33,7 @@ def open_file_for_reading(input_file):
     return file_
 
 
-def read_molecule_file(filename: str, mol_container, stream=None):
+def read_molecule_file(file, mol_container, extension='pdb', name='protein'):
     """Read input file or stream (PDB or PROPKA) for a molecular container
 
     Args:
@@ -76,14 +75,16 @@ def read_molecule_file(filename: str, mol_container, stream=None):
         <propka.molecular_container.MolecularContainer at 0x7f6e0c8f2310>
 
     """
-    input_path = Path(filename)
-    mol_container.name = input_path.stem
-    input_file_extension = input_path.suffix
-
-    if stream is not None:
-        input_file = stream
+    
+    if isinstance(file, str):
+        input_file = file
+        input_path = Path(filename)
+        mol_container.name = input_path.stem
+        input_file_extension = input_path.suffix
     else:
-        input_file = filename
+        input_file = file
+        mol_container.name = name
+        input_file_extension = '.'+extension
 
     if input_file_extension.lower() == '.pdb':
         # input is a pdb file. read in atoms and top up containers to make
