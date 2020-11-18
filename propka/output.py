@@ -252,7 +252,15 @@ def get_summary_section(protein, conformation, parameters):
                     group.get_summary_string(
                         parameters.remove_penalised_group))
     return str_
-
+    
+def get_pka_as_list(protein, conformation, parameters):
+    lst = []
+    for residue_type in parameters.write_out_order:
+        for group in protein.conformations[conformation].groups:
+            if group.residue_type == residue_type:
+                lst.append( (group.residue_type, group.atom.res_num, group.atom.chain_id, group.pka_value, group.model_pka) )
+    
+    return lst
 
 def get_folding_profile_section(
         protein, conformation='AVR', direction="folding", reference="neutral",
