@@ -78,7 +78,7 @@ def read_molecule_file(file, mol_container, extension='pdb', name='protein'):
     
     if isinstance(file, str):
         input_file = file
-        input_path = Path(filename)
+        input_path = Path(file)
         mol_container.name = input_path.stem
         input_file_extension = input_path.suffix
     else:
